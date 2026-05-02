@@ -1,511 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PixelDrop – Gaming & Tech Gear</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --bg: #030712;
-      --surface: #0a0f1e;
-      --card: #0d1526;
-      --border: #1a2a4a;
-      --neon: #00ff9d;
-      --neon2: #ff2d78;
-      --neon3: #7c3aed;
-      --text: #c8d8f0;
-      --muted: #4a6080;
-      --accent: #00ff9d;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIXELDROP — Next-Level Gear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0C0C10;
+  --surface: #141418;
+  --surface2: #1A1A20;
+  --border: #252530;
+  --border2: #2E2E3A;
+  --green: #00E87A;
+  --green-dim: rgba(0,232,122,0.12);
+  --cyan: #00D4FF;
+  --red: #FF3D5A;
+  --text: #E8E8F0;
+  --muted: #5A5A6E;
+  --muted2: #8A8A9A;
+  --radius: 3px;
+  --t: 0.18s ease;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Share Tech Mono', monospace;
-      min-height: 100vh;
-      overflow-x: hidden;
-      background-image:
-        linear-gradient(rgba(0,255,157,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,157,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-    }
+/* SCANLINE OVERLAY */
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:0;}
 
-    /* scanline overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.07) 2px,
-        rgba(0,0,0,0.07) 4px
-      );
-      pointer-events: none;
-      z-index: 999;
-    }
+/* TICKER */
+.ticker{background:var(--green);color:var(--bg);padding:7px 0;overflow:hidden;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.08em;position:relative;z-index:10;}
+.ticker-inner{display:flex;gap:80px;animation:tick 30s linear infinite;white-space:nowrap;}
+.ticker-inner span::before{content:'> ';}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2.5rem;
-      border-bottom: 1px solid var(--border);
-      background: rgba(3,7,18,0.95);
-      backdrop-filter: blur(10px);
-      position: sticky; top: 0; z-index: 100;
-    }
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 900;
-      font-size: 1.4rem;
-      color: var(--neon);
-      text-shadow: 0 0 20px rgba(0,255,157,0.6), 0 0 40px rgba(0,255,157,0.3);
-      letter-spacing: 2px;
-    }
-    .logo span { color: var(--neon2); text-shadow: 0 0 20px rgba(255,45,120,0.6); }
-    .nav-links { display: flex; gap: 2rem; font-size: .8rem; letter-spacing: 1px; }
-    .nav-links a { color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color .2s; }
-    .nav-links a:hover { color: var(--neon); }
-    .cart-btn {
-      background: transparent;
-      border: 1px solid var(--neon);
-      color: var(--neon);
-      padding: .45rem 1rem;
-      font-family: 'Orbitron', sans-serif;
-      font-size: .7rem;
-      letter-spacing: 2px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: background .2s, box-shadow .2s;
-    }
-    .cart-btn:hover {
-      background: rgba(0,255,157,0.1);
-      box-shadow: 0 0 20px rgba(0,255,157,0.3);
-    }
+/* HEADER */
+header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.header-inner{max-width:1440px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:40px;}
+.logo{font-family:'Space Mono',monospace;font-weight:700;font-size:18px;color:var(--text);text-decoration:none;letter-spacing:0.06em;display:flex;align-items:center;gap:8px;}
+.logo-mark{color:var(--green);}
+.logo-sub{font-size:10px;color:var(--muted);font-weight:400;display:block;letter-spacing:0.12em;}
+nav{display:flex;gap:2px;flex:1;}
+nav a{font-size:12px;font-weight:500;color:var(--muted2);text-decoration:none;padding:6px 12px;border-radius:var(--radius);transition:var(--t);letter-spacing:0.04em;font-family:'Space Mono',monospace;}
+nav a:hover{color:var(--green);background:var(--green-dim);}
+nav a.active{color:var(--green);background:var(--green-dim);}
+.header-right{display:flex;align-items:center;gap:10px;margin-left:auto;}
+.search-box{position:relative;}
+.search-box input{background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:8px 14px 8px 34px;border-radius:var(--radius);font-size:12px;font-family:'Space Mono',monospace;width:200px;outline:none;transition:var(--t);}
+.search-box input::placeholder{color:var(--muted);}
+.search-box input:focus{border-color:var(--green);box-shadow:0 0 0 2px var(--green-dim);}
+.search-box svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);}
+.status-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,232,122,0.5);}50%{box-shadow:0 0 0 6px rgba(0,232,122,0);}}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--green);color:var(--bg);border:none;padding:8px 18px;border-radius:var(--radius);font-size:12px;font-weight:700;cursor:pointer;font-family:'Space Mono',monospace;transition:var(--t);letter-spacing:0.04em;}
+.cart-btn:hover{background:#1cf587;transform:translateY(-1px);}
+.cart-n{background:var(--bg);color:var(--green);border-radius:2px;width:20px;height:18px;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700;}
 
-    /* HERO */
-    .hero {
-      padding: 4rem 2.5rem 3rem;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero::after {
-      content: 'PIXEL DROP';
-      position: absolute;
-      right: -2rem;
-      top: 50%;
-      transform: translateY(-50%) rotate(-90deg);
-      font-family: 'Orbitron', sans-serif;
-      font-size: 7rem;
-      font-weight: 900;
-      color: rgba(0,255,157,0.03);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .hero-tag {
-      font-size: .7rem;
-      letter-spacing: 3px;
-      color: var(--neon);
-      text-transform: uppercase;
-      margin-bottom: .75rem;
-    }
-    .hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 900;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 30px rgba(124,58,237,0.4);
-    }
-    .hero h1 span { color: var(--neon2); text-shadow: 0 0 20px rgba(255,45,120,0.5); }
-    .hero p { color: var(--muted); max-width: 440px; font-size: .88rem; line-height: 1.7; margin-bottom: 1.5rem; }
-    .hero-input-wrap {
-      display: flex;
-      max-width: 420px;
-      border: 1px solid var(--neon);
-      box-shadow: 0 0 20px rgba(0,255,157,0.15);
-    }
-    .hero-input-wrap input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: .7rem 1rem;
-      color: var(--neon);
-      font-family: 'Share Tech Mono', monospace;
-      font-size: .85rem;
-    }
-    .hero-input-wrap input::placeholder { color: var(--muted); }
-    .hero-input-wrap button {
-      background: var(--neon);
-      border: none;
-      color: var(--bg);
-      padding: .7rem 1.2rem;
-      font-family: 'Orbitron', sans-serif;
-      font-size: .7rem;
-      letter-spacing: 1px;
-      cursor: pointer;
-      font-weight: 700;
-    }
+/* HERO */
+.hero{max-width:1440px;margin:0 auto;padding:72px 32px 60px;position:relative;z-index:1;}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.eyebrow-line{width:40px;height:1px;background:var(--green);}
+.eyebrow-text{font-family:'Space Mono',monospace;font-size:11px;color:var(--green);letter-spacing:0.16em;text-transform:uppercase;}
+.hero h1{font-family:'Outfit',sans-serif;font-size:clamp(44px,6vw,88px);font-weight:700;line-height:1.0;letter-spacing:-0.03em;margin-bottom:20px;}
+.hero h1 .accent{color:var(--green);}
+.hero h1 .dim{color:var(--muted);}
+.hero-sub{font-size:15px;color:var(--muted2);max-width:520px;line-height:1.7;margin-bottom:32px;}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;}
+.pill{background:var(--surface2);border:1px solid var(--border2);color:var(--muted2);padding:6px 14px;border-radius:2px;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:0.06em;}
+.pill.active{background:var(--green-dim);border-color:var(--green);color:var(--green);}
 
-    /* SECTION */
-    .section { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem; }
-    .section-header {
-      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.8rem;
-    }
-    .section-header h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--neon);
-    }
-    .section-header::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--border), transparent);
-    }
+/* MAIN */
+main{max-width:1440px;margin:0 auto;padding:0 32px 80px;position:relative;z-index:1;}
 
-    /* GRID */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1rem;
-    }
+/* TOOLBAR */
+.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:28px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);flex-wrap:wrap;}
+.tb-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-right:4px;}
+.filter-group{display:flex;gap:4px;}
+.f-btn{background:var(--bg);border:1px solid var(--border2);color:var(--muted2);padding:5px 12px;border-radius:var(--radius);font-size:11px;font-weight:600;cursor:pointer;font-family:'Space Mono',monospace;transition:var(--t);}
+.f-btn:hover{border-color:var(--green);color:var(--green);}
+.f-btn.active{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+.tb-sep{width:1px;height:24px;background:var(--border2);margin:0 4px;}
+.sort-sel{background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:5px 28px 5px 10px;border-radius:var(--radius);font-size:11px;font-family:'Space Mono',monospace;cursor:pointer;outline:none;transition:var(--t);appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235A5A6E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;margin-left:auto;}
+.sort-sel:focus{border-color:var(--green);}
 
-    /* CARD */
-    .product-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      transition: border-color .25s, box-shadow .25s;
-      cursor: pointer;
-    }
-    .product-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--neon3), var(--neon), var(--neon2));
-      opacity: 0;
-      transition: opacity .3s;
-    }
-    .product-card:hover {
-      border-color: rgba(0,255,157,0.4);
-      box-shadow: 0 0 30px rgba(0,255,157,0.08), inset 0 0 40px rgba(0,255,157,0.02);
-    }
-    .product-card:hover::before { opacity: 1; }
+.results-info{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:16px;letter-spacing:0.04em;}
+.results-info b{color:var(--green);}
 
-    .product-img {
-      width: 100%;
-      height: 150px;
-      background: linear-gradient(135deg, #0a0f1e 0%, #111827 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.2rem;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    .product-img::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(0,255,157,0.06) 0%, transparent 70%);
-    }
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--border);}
+.card{background:var(--surface);padding:22px;position:relative;transition:var(--t);cursor:default;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:var(--t);}
+.card:hover::before{background:var(--green);}
+.card:hover{background:var(--surface2);z-index:2;}
+.card-badges{display:flex;gap:5px;margin-bottom:14px;min-height:20px;}
+.badge{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;}
+.b-sale{background:rgba(255,61,90,0.15);color:var(--red);border:1px solid rgba(255,61,90,0.25);}
+.b-new{background:rgba(0,212,255,0.1);color:var(--cyan);border:1px solid rgba(0,212,255,0.2);}
+.b-hot{background:rgba(0,232,122,0.12);color:var(--green);border:1px solid rgba(0,232,122,0.2);}
+.card-emoji{font-size:36px;margin-bottom:14px;display:block;filter:grayscale(20%);}
+.card-cat{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.card-name{font-size:14px;font-weight:600;line-height:1.3;margin-bottom:10px;color:var(--text);}
+.card-rating{display:flex;align-items:center;gap:6px;margin-bottom:14px;}
+.stars{color:var(--green);font-size:11px;letter-spacing:1px;}
+.rcount{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);}
+.card-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.p-now{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;color:var(--text);}
+.p-was{font-size:12px;color:var(--muted);text-decoration:line-through;}
+.p-off{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--green);}
+.add-btn{width:100%;background:transparent;border:1px solid var(--border2);color:var(--muted2);padding:9px;font-size:11px;font-weight:700;font-family:'Space Mono',monospace;border-radius:var(--radius);cursor:pointer;transition:var(--t);letter-spacing:0.06em;}
+.add-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-dim);}
+.add-btn.added{background:var(--green-dim);border-color:var(--green);color:var(--green);}
 
-    .badge {
-      position: absolute;
-      top: .6rem; right: .6rem;
-      font-size: .6rem;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      letter-spacing: 1px;
-      padding: .2rem .5rem;
-      text-transform: uppercase;
-      background: var(--neon2);
-      color: #fff;
-    }
-    .badge.new { background: var(--neon3); }
+/* CART PANEL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;opacity:0;pointer-events:none;transition:0.3s;backdrop-filter:blur(4px);}
+.overlay.open{opacity:1;pointer-events:all;}
+.cart-panel{position:fixed;right:0;top:0;bottom:0;width:400px;background:var(--surface);border-left:1px solid var(--border2);z-index:201;transform:translateX(100%);transition:0.3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+.cart-panel.open{transform:translateX(0);}
+.cp-head{padding:20px 24px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;}
+.cp-head h2{font-family:'Space Mono',monospace;font-size:14px;color:var(--green);letter-spacing:0.1em;}
+.cp-close{border:1px solid var(--border2);background:var(--bg);color:var(--muted2);width:30px;height:30px;border-radius:var(--radius);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;transition:var(--t);}
+.cp-close:hover{border-color:var(--red);color:var(--red);}
+.cp-body{flex:1;overflow-y:auto;padding:16px 24px;}
+.cp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--muted);gap:12px;font-family:'Space Mono',monospace;font-size:12px;}
+.cp-empty-icon{font-size:40px;opacity:0.4;}
+.cp-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.cp-item-icon{font-size:24px;}
+.cp-item-info{flex:1;}
+.cp-item-name{font-size:12px;font-weight:600;margin-bottom:4px;line-height:1.3;}
+.cp-item-price{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--green);}
+.cp-rm{border:none;background:none;cursor:pointer;color:var(--muted);font-size:18px;align-self:flex-start;transition:var(--t);}
+.cp-rm:hover{color:var(--red);}
+.cp-foot{padding:18px 24px;border-top:1px solid var(--border2);background:var(--bg);}
+.cp-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.cp-total-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;}
+.cp-total-num{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--green);}
+.checkout-btn{width:100%;background:var(--green);color:var(--bg);border:none;padding:12px;font-size:12px;font-weight:700;font-family:'Space Mono',monospace;border-radius:var(--radius);cursor:pointer;transition:var(--t);letter-spacing:0.08em;}
+.checkout-btn:hover{background:#1cf587;transform:translateY(-1px);}
 
-    .product-body { padding: .9rem 1rem 1rem; }
-    .product-category {
-      font-size: .65rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--neon);
-      margin-bottom: .3rem;
-    }
-    .product-title {
-      font-size: .88rem;
-      line-height: 1.4;
-      color: var(--text);
-      margin-bottom: .6rem;
-    }
-    .rating { font-size: .72rem; color: var(--neon2); margin-bottom: .65rem; }
-    .rating span { color: var(--muted); margin-left: .2rem; }
-    .price-row { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .8rem; }
-    .price {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--neon);
-      text-shadow: 0 0 10px rgba(0,255,157,0.4);
-    }
-    .price-original { font-size: .78rem; color: var(--muted); text-decoration: line-through; }
-    .discount { font-size: .72rem; color: var(--neon2); font-weight: 700; }
-    .add-btn {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      padding: .55rem;
-      font-family: 'Orbitron', sans-serif;
-      font-size: .65rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .add-btn:hover {
-      border-color: var(--neon);
-      color: var(--neon);
-      box-shadow: 0 0 12px rgba(0,255,157,0.2);
-    }
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:28px 32px;max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;}
+.footer-logo{font-family:'Space Mono',monospace;font-size:14px;color:var(--green);}
+footer span{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.06em;}
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.5rem;
-      text-align: center;
-      font-size: .72rem;
-      color: var(--muted);
-      letter-spacing: 1px;
-    }
-    footer span { color: var(--neon); }
-  </style>
+.no-results{text-align:center;padding:80px 20px;color:var(--muted);font-family:'Space Mono',monospace;}
+.no-results h3{font-size:16px;color:var(--green);margin-bottom:8px;}
+
+@media(max-width:768px){
+  .header-inner{padding:0 16px;gap:12px;}
+  .search-box{display:none;}
+  nav{display:none;}
+  main{padding:0 16px 60px;}
+  .cart-panel{width:100%;}
+  .hero{padding:48px 16px;}
+}
+</style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">PIXEL<span>DROP</span></div>
-  <div class="nav-links">
-    <a href="#">Gaming</a><a href="#">Laptops</a><a href="#">Phones</a><a href="#">Audio</a>
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>SYSTEM ONLINE</span><span>DEALS ACTIVE</span><span>FREE SHIP OVER $99</span><span>UP TO 35% OFF</span><span>100+ ITEMS IN STOCK</span><span>SAME DAY DISPATCH</span><span>SYSTEM ONLINE</span><span>DEALS ACTIVE</span><span>FREE SHIP OVER $99</span><span>UP TO 35% OFF</span><span>100+ ITEMS IN STOCK</span><span>SAME DAY DISPATCH</span>
   </div>
-  <button class="cart-btn">[ CART: 0 ]</button>
-</nav>
+</div>
 
-<section class="hero">
-  <div class="hero-tag">// SYSTEM ONLINE — DEALS ACTIVE</div>
-  <h1>Next-Level Gear<br/>for <span>Real Players</span></h1>
-  <p>Drop into the best prices on gaming hardware, phones, and audio gear. No respawn needed.</p>
-  <div class="hero-input-wrap">
-    <input type="text" placeholder="SEARCH_PRODUCT.exe"/>
-    <button>EXEC</button>
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <span class="logo-mark">PIXEL</span>DROP
+      <span class="logo-sub">// GAMING & TECH</span>
+    </a>
+    <nav id="mainNav">
+      <a href="#" class="active" onclick="filterCat('all',this)">ALL</a>
+      <a href="#" onclick="filterCat('Gaming',this)">GAMING</a>
+      <a href="#" onclick="filterCat('Laptop',this)">LAPTOPS</a>
+      <a href="#" onclick="filterCat('Smartphone',this)">PHONES</a>
+      <a href="#" onclick="filterCat('Headphones',this)">AUDIO</a>
+      <a href="#" onclick="filterCat('Monitor',this)">MONITORS</a>
+      <a href="#" onclick="filterCat('Accessory',this)">GEAR</a>
+      <a href="#" onclick="filterCat('Wearable',this)">WEARABLES</a>
+    </nav>
+    <div class="header-right">
+      <div class="status-dot"></div>
+      <div class="search-box">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="5" stroke="#5A5A6E" stroke-width="1.5"/><path d="M10 10l3 3" stroke="#5A5A6E" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="SEARCH_" oninput="searchProducts(this.value)">
+      </div>
+      <button class="cart-btn" onclick="toggleCart()">
+        [CART <span class="cart-n" id="cartCount">0</span>]
+      </button>
+    </div>
   </div>
-</section>
+</header>
 
-<main class="section">
-  <div class="section-header"><h2>// Live Inventory</h2></div>
-  <div class="product-grid" id="products">
+<div class="hero">
+  <div class="hero-eyebrow">
+    <span class="eyebrow-line"></span>
+    <span class="eyebrow-text">Next-Level Gear for Real Players</span>
+  </div>
+  <h1>DROP INTO<br><span class="accent">THE BEST</span><br><span class="dim">PRICES</span></h1>
+  <p class="hero-sub">Gaming hardware, phones, audio & more — no respawn needed. The best deals, always in stock.</p>
+  <div class="hero-pills">
+    <span class="pill active">// LIVE INVENTORY</span>
+    <span class="pill">100+ PRODUCTS</span>
+    <span class="pill">35% MAX SAVINGS</span>
+    <span class="pill">PRICE MATCH</span>
+  </div>
+</div>
 
-    <article class="product-card" data-id="1">
-      <div class="product-img">💻</div>
-      <span class="badge">SALE</span>
-      <div class="product-body">
-        <div class="product-category">Laptop</div>
-        <div class="product-title">Apple MacBook Air M2 13-inch</div>
-        <div class="rating">★★★★★ <span>(1,204)</span></div>
-        <div class="price-row">
-          <span class="price">$979.00</span>
-          <span class="price-original">$1,099.00</span>
-          <span class="discount">-11%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
+<main>
+  <div class="toolbar">
+    <span class="tb-label">CAT:</span>
+    <div class="filter-group">
+      <button class="f-btn active" onclick="filterCat('all',this)">ALL</button>
+      <button class="f-btn" onclick="filterCat('Gaming',this)">🎮</button>
+      <button class="f-btn" onclick="filterCat('Laptop',this)">💻</button>
+      <button class="f-btn" onclick="filterCat('Smartphone',this)">📱</button>
+      <button class="f-btn" onclick="filterCat('Headphones',this)">🎧</button>
+      <button class="f-btn" onclick="filterCat('Tablet',this)">📟</button>
+      <button class="f-btn" onclick="filterCat('Monitor',this)">🖥️</button>
+      <button class="f-btn" onclick="filterCat('Accessory',this)">🖱️</button>
+      <button class="f-btn" onclick="filterCat('Wearable',this)">⌚</button>
+    </div>
+    <div class="tb-sep"></div>
+    <span class="tb-label">FILTER:</span>
+    <div class="filter-group">
+      <button class="f-btn active" onclick="filterBadge('all',this)">ALL</button>
+      <button class="f-btn" onclick="filterBadge('sale',this)">SALE</button>
+      <button class="f-btn" onclick="filterBadge('new',this)">NEW</button>
+      <button class="f-btn" onclick="filterBadge('hot',this)">HOT</button>
+    </div>
+    <select class="sort-sel" onchange="sortProducts(this.value)">
+      <option value="default">// FEATURED</option>
+      <option value="price-asc">PRICE ASC</option>
+      <option value="price-desc">PRICE DESC</option>
+      <option value="discount">BEST DEAL</option>
+      <option value="rating">TOP RATED</option>
+    </select>
+  </div>
 
-    <article class="product-card" data-id="2">
-      <div class="product-img">💻</div>
-      <div class="product-body">
-        <div class="product-category">Laptop</div>
-        <div class="product-title">Dell XPS 15 OLED – Intel Core i9</div>
-        <div class="rating">★★★★☆ <span>(876)</span></div>
-        <div class="price-row">
-          <span class="price">$1,599.00</span>
-          <span class="price-original">$1,799.00</span>
-          <span class="discount">-11%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="3">
-      <div class="product-img">💻</div>
-      <span class="badge new">NEW</span>
-      <div class="product-body">
-        <div class="product-category">Laptop</div>
-        <div class="product-title">Lenovo ThinkPad X1 Carbon Gen 12</div>
-        <div class="rating">★★★★★ <span>(532)</span></div>
-        <div class="price-row">
-          <span class="price">$1,249.00</span>
-          <span class="price-original">$1,449.00</span>
-          <span class="discount">-14%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="4">
-      <div class="product-img">💻</div>
-      <div class="product-body">
-        <div class="product-category">Laptop</div>
-        <div class="product-title">ASUS ROG Zephyrus G16 – RTX 4070</div>
-        <div class="rating">★★★★☆ <span>(319)</span></div>
-        <div class="price-row">
-          <span class="price">$1,389.00</span>
-          <span class="price-original">$1,699.00</span>
-          <span class="discount">-18%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="5">
-      <div class="product-img">📱</div>
-      <span class="badge">SALE</span>
-      <div class="product-body">
-        <div class="product-category">Smartphone</div>
-        <div class="product-title">Samsung Galaxy S25 Ultra 512GB</div>
-        <div class="rating">★★★★★ <span>(2,110)</span></div>
-        <div class="price-row">
-          <span class="price">$1,079.00</span>
-          <span class="price-original">$1,299.00</span>
-          <span class="discount">-17%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="6">
-      <div class="product-img">📱</div>
-      <span class="badge new">NEW</span>
-      <div class="product-body">
-        <div class="product-category">Smartphone</div>
-        <div class="product-title">Apple iPhone 16 Pro Max 256GB</div>
-        <div class="rating">★★★★★ <span>(3,401)</span></div>
-        <div class="price-row">
-          <span class="price">$1,149.00</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="7">
-      <div class="product-img">📱</div>
-      <div class="product-body">
-        <div class="product-category">Smartphone</div>
-        <div class="product-title">Google Pixel 9 Pro XL 128GB</div>
-        <div class="rating">★★★★☆ <span>(788)</span></div>
-        <div class="price-row">
-          <span class="price">$849.00</span>
-          <span class="price-original">$999.00</span>
-          <span class="discount">-15%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="8">
-      <div class="product-img">📱</div>
-      <div class="product-body">
-        <div class="product-category">Smartphone</div>
-        <div class="product-title">OnePlus 13 – Hasselblad Camera</div>
-        <div class="rating">★★★★☆ <span>(441)</span></div>
-        <div class="price-row">
-          <span class="price">$749.00</span>
-          <span class="price-original">$899.00</span>
-          <span class="discount">-17%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="9">
-      <div class="product-img">🎧</div>
-      <span class="badge">SALE</span>
-      <div class="product-body">
-        <div class="product-category">Headphones</div>
-        <div class="product-title">Sony WH-1000XM6 Wireless ANC</div>
-        <div class="rating">★★★★★ <span>(5,622)</span></div>
-        <div class="price-row">
-          <span class="price">$259.00</span>
-          <span class="price-original">$349.00</span>
-          <span class="discount">-26%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="10">
-      <div class="product-img">🎧</div>
-      <div class="product-body">
-        <div class="product-category">Headphones</div>
-        <div class="product-title">Apple AirPods Max USB-C</div>
-        <div class="rating">★★★★☆ <span>(1,890)</span></div>
-        <div class="price-row">
-          <span class="price">$419.00</span>
-          <span class="price-original">$549.00</span>
-          <span class="discount">-24%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="11">
-      <div class="product-img">🎧</div>
-      <span class="badge new">NEW</span>
-      <div class="product-body">
-        <div class="product-category">Headphones</div>
-        <div class="product-title">Bose QuietComfort Ultra</div>
-        <div class="rating">★★★★★ <span>(2,034)</span></div>
-        <div class="price-row">
-          <span class="price">$299.00</span>
-          <span class="price-original">$429.00</span>
-          <span class="discount">-30%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
-    <article class="product-card" data-id="12">
-      <div class="product-img">🖥️</div>
-      <div class="product-body">
-        <div class="product-category">Monitor</div>
-        <div class="product-title">LG UltraWide 34" OLED 240Hz</div>
-        <div class="rating">★★★★★ <span>(729)</span></div>
-        <div class="price-row">
-          <span class="price">$1,099.00</span>
-          <span class="price-original">$1,399.00</span>
-          <span class="discount">-21%</span>
-        </div>
-        <button class="add-btn">ADD_TO_CART</button>
-      </div>
-    </article>
-
+  <p class="results-info" id="resultsInfo"></p>
+  <div class="grid" id="productGrid"></div>
+  <div class="no-results" id="noResults" style="display:none">
+    <h3>// NO RESULTS</h3>
+    <p>Try different filters.</p>
   </div>
 </main>
 
 <footer>
-  &copy; 2026 <span>PIXELDROP.GG</span> — MOCK STORE // HACKATHON BUILD
+  <span class="footer-logo">// PIXELDROP.GG</span>
+  <span>© 2026 PIXELDROP — MOCK STORE // HACKATHON BUILD</span>
 </footer>
+
+<!-- CART -->
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cp-head">
+    <h2>// CART</h2>
+    <button class="cp-close" onclick="toggleCart()">[X]</button>
+  </div>
+  <div class="cp-body" id="cartItems">
+    <div class="cp-empty"><div class="cp-empty-icon">🎮</div><p>// CART EMPTY</p></div>
+  </div>
+  <div class="cp-foot">
+    <div class="cp-total">
+      <span class="cp-total-label">TOTAL</span>
+      <span class="cp-total-num" id="cartTotal">$0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="alert('Checkout — mock demo')">[ CHECKOUT → ]</button>
+  </div>
+</div>
+
+<script>
+const PRODUCTS=[
+  {id:1,cat:'Laptop',emoji:'💻',name:'Apple MacBook Air M2 13"',rating:4.9,reviews:1204,price:949,orig:1099,badge:'sale'},
+  {id:2,cat:'Laptop',emoji:'💻',name:'Apple MacBook Pro M3 14"',rating:4.9,reviews:876,price:1599,orig:1799,badge:'new'},
+  {id:3,cat:'Laptop',emoji:'💻',name:'Apple MacBook Pro M3 Max 16"',rating:5.0,reviews:532,price:2499,orig:2799,badge:'hot'},
+  {id:4,cat:'Laptop',emoji:'💻',name:'Dell XPS 15 OLED – Core i9',rating:4.7,reviews:319,price:1529,orig:1799,badge:'sale'},
+  {id:5,cat:'Laptop',emoji:'💻',name:'Dell XPS 13 Plus',rating:4.6,reviews:445,price:1199,orig:1399,badge:null},
+  {id:6,cat:'Laptop',emoji:'💻',name:'Lenovo ThinkPad X1 Carbon Gen 12',rating:4.8,reviews:788,price:1199,orig:1449,badge:'new'},
+  {id:7,cat:'Laptop',emoji:'💻',name:'Lenovo Legion Pro 7i – RTX 4070',rating:4.7,reviews:612,price:1799,orig:2199,badge:'hot'},
+  {id:8,cat:'Laptop',emoji:'💻',name:'ASUS ROG Zephyrus G16',rating:4.7,reviews:441,price:1349,orig:1699,badge:'sale'},
+  {id:9,cat:'Laptop',emoji:'💻',name:'ASUS ZenBook Pro 16X OLED',rating:4.6,reviews:380,price:1699,orig:1999,badge:null},
+  {id:10,cat:'Laptop',emoji:'💻',name:'HP Spectre x360 14"',rating:4.6,reviews:520,price:1299,orig:1499,badge:null},
+  {id:11,cat:'Laptop',emoji:'💻',name:'HP Omen 17 – RTX 4080',rating:4.5,reviews:290,price:1999,orig:2399,badge:'hot'},
+  {id:12,cat:'Laptop',emoji:'💻',name:'Razer Blade 15 – RTX 4070',rating:4.7,reviews:710,price:2199,orig:2599,badge:'sale'},
+  {id:13,cat:'Laptop',emoji:'💻',name:'MSI Titan GT77 – RTX 4090',rating:4.8,reviews:183,price:2999,orig:3499,badge:null},
+  {id:14,cat:'Laptop',emoji:'💻',name:'Acer Predator Helios 18',rating:4.6,reviews:265,price:1799,orig:2099,badge:'new'},
+  {id:15,cat:'Laptop',emoji:'💻',name:'Microsoft Surface Pro 11',rating:4.5,reviews:414,price:1299,orig:1599,badge:null},
+  {id:16,cat:'Laptop',emoji:'💻',name:'Samsung Galaxy Book4 Ultra',rating:4.6,reviews:337,price:1799,orig:2099,badge:'sale'},
+  {id:17,cat:'Smartphone',emoji:'📱',name:'Apple iPhone 16 Pro Max 256GB',rating:4.9,reviews:3401,price:1099,orig:null,badge:'new'},
+  {id:18,cat:'Smartphone',emoji:'📱',name:'Apple iPhone 16 Plus 128GB',rating:4.8,reviews:2109,price:899,orig:999,badge:'sale'},
+  {id:19,cat:'Smartphone',emoji:'📱',name:'Samsung Galaxy S25 Ultra 512GB',rating:4.9,reviews:2110,price:999,orig:1299,badge:'sale'},
+  {id:20,cat:'Smartphone',emoji:'📱',name:'Samsung Galaxy S25+ 256GB',rating:4.8,reviews:1654,price:799,orig:999,badge:null},
+  {id:21,cat:'Smartphone',emoji:'📱',name:'Google Pixel 9 Pro XL 128GB',rating:4.7,reviews:788,price:799,orig:999,badge:'sale'},
+  {id:22,cat:'Smartphone',emoji:'📱',name:'Google Pixel 9a',rating:4.6,reviews:940,price:499,orig:599,badge:'new'},
+  {id:23,cat:'Smartphone',emoji:'📱',name:'OnePlus 13 – Hasselblad Camera',rating:4.7,reviews:441,price:699,orig:899,badge:null},
+  {id:24,cat:'Smartphone',emoji:'📱',name:'OnePlus Open Fold',rating:4.5,reviews:317,price:1299,orig:1599,badge:null},
+  {id:25,cat:'Smartphone',emoji:'📱',name:'Xiaomi 15 Pro',rating:4.7,reviews:620,price:899,orig:1099,badge:'hot'},
+  {id:26,cat:'Smartphone',emoji:'📱',name:'Sony Xperia 1 VI',rating:4.6,reviews:409,price:1099,orig:1299,badge:null},
+  {id:27,cat:'Smartphone',emoji:'📱',name:'Motorola Edge 50 Ultra',rating:4.5,reviews:523,price:649,orig:799,badge:'sale'},
+  {id:28,cat:'Smartphone',emoji:'📱',name:'Nothing Phone (3)',rating:4.6,reviews:812,price:799,orig:899,badge:'new'},
+  {id:29,cat:'Smartphone',emoji:'📱',name:'Asus ROG Phone 9 Pro',rating:4.8,reviews:388,price:1199,orig:1399,badge:'hot'},
+  {id:30,cat:'Smartphone',emoji:'📱',name:'Samsung Galaxy Z Flip6',rating:4.6,reviews:752,price:999,orig:1099,badge:'sale'},
+  {id:31,cat:'Smartphone',emoji:'📱',name:'Samsung Galaxy Z Fold6',rating:4.7,reviews:501,price:1799,orig:1999,badge:null},
+  {id:32,cat:'Smartphone',emoji:'📱',name:'Vivo X200 Pro',rating:4.6,reviews:445,price:749,orig:899,badge:'new'},
+  {id:33,cat:'Headphones',emoji:'🎧',name:'Sony WH-1000XM6 Wireless ANC',rating:4.9,reviews:5622,price:239,orig:349,badge:'sale'},
+  {id:34,cat:'Headphones',emoji:'🎧',name:'Apple AirPods Max USB-C',rating:4.7,reviews:1890,price:399,orig:549,badge:'sale'},
+  {id:35,cat:'Headphones',emoji:'🎧',name:'Bose QuietComfort Ultra',rating:4.8,reviews:2034,price:289,orig:429,badge:'new'},
+  {id:36,cat:'Headphones',emoji:'🎧',name:'Jabra Evolve2 85 – MS Teams',rating:4.6,reviews:677,price:219,orig:299,badge:null},
+  {id:37,cat:'Headphones',emoji:'🎧',name:'Sennheiser Momentum 4',rating:4.7,reviews:1120,price:279,orig:349,badge:null},
+  {id:38,cat:'Headphones',emoji:'🎧',name:'Bang & Olufsen Beoplay H95',rating:4.8,reviews:403,price:599,orig:699,badge:'hot'},
+  {id:39,cat:'Headphones',emoji:'🎵',name:'Sony WF-1000XM5 Earbuds',rating:4.8,reviews:3210,price:199,orig:279,badge:'sale'},
+  {id:40,cat:'Headphones',emoji:'🎵',name:'Apple AirPods Pro 3',rating:4.8,reviews:4502,price:249,orig:299,badge:'new'},
+  {id:41,cat:'Headphones',emoji:'🎵',name:'Samsung Galaxy Buds3 Pro',rating:4.6,reviews:1840,price:179,orig:249,badge:'sale'},
+  {id:42,cat:'Headphones',emoji:'🎵',name:'Anker Soundcore Liberty 4 Pro',rating:4.5,reviews:2890,price:89,orig:129,badge:'hot'},
+  {id:43,cat:'Headphones',emoji:'🎵',name:'JBL Tour Pro 3',rating:4.6,reviews:1102,price:149,orig:199,badge:null},
+  {id:44,cat:'Headphones',emoji:'🎵',name:'Jabra Elite 10 Gen 2',rating:4.7,reviews:932,price:199,orig:249,badge:'new'},
+  {id:45,cat:'Headphones',emoji:'🎧',name:'Marshall Monitor III ANC',rating:4.6,reviews:561,price:329,orig:399,badge:null},
+  {id:46,cat:'Headphones',emoji:'🎧',name:'Denon AH-D9200',rating:4.8,reviews:218,price:899,orig:999,badge:'hot'},
+  {id:47,cat:'Tablet',emoji:'📟',name:'Apple iPad Pro M4 11" 256GB',rating:4.9,reviews:1541,price:899,orig:1099,badge:'sale'},
+  {id:48,cat:'Tablet',emoji:'📟',name:'Apple iPad Pro M4 13" 1TB',rating:4.9,reviews:704,price:1599,orig:1899,badge:'new'},
+  {id:49,cat:'Tablet',emoji:'📟',name:'Apple iPad Air M2 11"',rating:4.8,reviews:2103,price:599,orig:699,badge:'sale'},
+  {id:50,cat:'Tablet',emoji:'📟',name:'Apple iPad mini 7',rating:4.7,reviews:1628,price:499,orig:599,badge:null},
+  {id:51,cat:'Tablet',emoji:'📟',name:'Samsung Galaxy Tab S10+ 512GB',rating:4.7,reviews:903,price:799,orig:999,badge:'sale'},
+  {id:52,cat:'Tablet',emoji:'📟',name:'Samsung Galaxy Tab S10 FE',rating:4.5,reviews:680,price:449,orig:549,badge:'new'},
+  {id:53,cat:'Tablet',emoji:'📟',name:'Microsoft Surface Pro 11',rating:4.6,reviews:540,price:1099,orig:1299,badge:null},
+  {id:54,cat:'Tablet',emoji:'📟',name:'Lenovo Tab Extreme',rating:4.5,reviews:385,price:599,orig:699,badge:null},
+  {id:55,cat:'Tablet',emoji:'📟',name:'Amazon Fire Max 11',rating:4.3,reviews:4201,price:179,orig:229,badge:'hot'},
+  {id:56,cat:'Tablet',emoji:'📟',name:'Huawei MatePad Pro 13.2"',rating:4.6,reviews:501,price:699,orig:849,badge:'sale'},
+  {id:57,cat:'Monitor',emoji:'🖥️',name:'LG UltraWide 34" OLED 240Hz',rating:4.9,reviews:729,price:1049,orig:1399,badge:'new'},
+  {id:58,cat:'Monitor',emoji:'🖥️',name:'Dell UltraSharp 27" 4K USB-C',rating:4.7,reviews:1102,price:499,orig:699,badge:'sale'},
+  {id:59,cat:'Monitor',emoji:'🖥️',name:'Samsung Odyssey OLED G9 49"',rating:4.8,reviews:412,price:1299,orig:1799,badge:'hot'},
+  {id:60,cat:'Monitor',emoji:'🖥️',name:'ASUS ProArt Display 27" OLED',rating:4.8,reviews:620,price:799,orig:999,badge:'new'},
+  {id:61,cat:'Monitor',emoji:'🖥️',name:'LG 27GR95QE-B OLED 240Hz',rating:4.7,reviews:880,price:599,orig:799,badge:'sale'},
+  {id:62,cat:'Monitor',emoji:'🖥️',name:'BenQ PD3220U 32" 4K',rating:4.7,reviews:743,price:699,orig:899,badge:null},
+  {id:63,cat:'Monitor',emoji:'🖥️',name:'Sony INZONE M9 II 4K 144Hz',rating:4.8,reviews:334,price:799,orig:999,badge:'hot'},
+  {id:64,cat:'Monitor',emoji:'🖥️',name:'Alienware AW3225QF OLED',rating:4.9,reviews:287,price:1199,orig:1499,badge:'new'},
+  {id:65,cat:'Monitor',emoji:'🖥️',name:'Gigabyte M32U 32" 4K 144Hz',rating:4.6,reviews:968,price:449,orig:599,badge:'sale'},
+  {id:66,cat:'Monitor',emoji:'🖥️',name:'ViewSonic ColorPro VP3268a-4K',rating:4.6,reviews:403,price:549,orig:699,badge:null},
+  {id:67,cat:'Gaming',emoji:'🎮',name:'PlayStation 5 Pro',rating:4.8,reviews:5210,price:699,orig:799,badge:'hot'},
+  {id:68,cat:'Gaming',emoji:'🎮',name:'Xbox Series X',rating:4.7,reviews:3890,price:499,orig:549,badge:'sale'},
+  {id:69,cat:'Gaming',emoji:'🎮',name:'Nintendo Switch OLED',rating:4.8,reviews:7120,price:349,orig:399,badge:null},
+  {id:70,cat:'Gaming',emoji:'🎮',name:'Steam Deck OLED 1TB',rating:4.8,reviews:2904,price:649,orig:799,badge:'hot'},
+  {id:71,cat:'Gaming',emoji:'🥽',name:'Valve Index VR Kit',rating:4.7,reviews:1203,price:999,orig:1199,badge:null},
+  {id:72,cat:'Gaming',emoji:'🥽',name:'Meta Quest 3 512GB',rating:4.7,reviews:3401,price:649,orig:799,badge:'sale'},
+  {id:73,cat:'Gaming',emoji:'🎮',name:'Xbox Elite Controller Series 2',rating:4.7,reviews:4502,price:179,orig:199,badge:null},
+  {id:74,cat:'Gaming',emoji:'🎮',name:'DualSense Edge Controller',rating:4.6,reviews:3812,price:199,orig:229,badge:'new'},
+  {id:75,cat:'Gaming',emoji:'🥽',name:'PlayStation VR2',rating:4.5,reviews:1678,price:549,orig:699,badge:'sale'},
+  {id:76,cat:'Gaming',emoji:'🖥️',name:'Nvidia GeForce RTX 4090 24GB',rating:4.9,reviews:1023,price:1599,orig:1999,badge:'hot'},
+  {id:77,cat:'Accessory',emoji:'⌨️',name:'Logitech MX Keys S',rating:4.7,reviews:3201,price:109,orig:129,badge:null},
+  {id:78,cat:'Accessory',emoji:'🖱️',name:'Logitech MX Master 3S',rating:4.8,reviews:5401,price:99,orig:119,badge:'sale'},
+  {id:79,cat:'Accessory',emoji:'🖱️',name:'Apple Magic Trackpad',rating:4.6,reviews:2810,price:129,orig:149,badge:null},
+  {id:80,cat:'Accessory',emoji:'⌨️',name:'Keychron Q1 Pro QMK',rating:4.8,reviews:1920,price:179,orig:199,badge:'new'},
+  {id:81,cat:'Accessory',emoji:'🖱️',name:'Razer DeathAdder V3 Pro',rating:4.7,reviews:2340,price:129,orig:169,badge:'sale'},
+  {id:82,cat:'Accessory',emoji:'🎧',name:'SteelSeries Arctis Nova Pro',rating:4.7,reviews:1504,price:249,orig:329,badge:'hot'},
+  {id:83,cat:'Accessory',emoji:'🎛️',name:'Elgato Stream Deck MK.2',rating:4.8,reviews:4201,price:149,orig:199,badge:'sale'},
+  {id:84,cat:'Accessory',emoji:'🔌',name:'Anker 140W GaN Charger',rating:4.7,reviews:6102,price:59,orig:79,badge:'hot'},
+  {id:85,cat:'Accessory',emoji:'📶',name:'Belkin MagSafe 3-in-1 Stand',rating:4.6,reviews:1830,price:149,orig:179,badge:null},
+  {id:86,cat:'Accessory',emoji:'💾',name:'Samsung 990 Pro 2TB SSD',rating:4.8,reviews:3201,price:169,orig:219,badge:'sale'},
+  {id:87,cat:'Accessory',emoji:'💾',name:'WD Black SN850X 2TB NVMe',rating:4.8,reviews:2890,price:159,orig:199,badge:'new'},
+  {id:88,cat:'Accessory',emoji:'⌨️',name:'Corsair K100 RGB Keyboard',rating:4.7,reviews:2104,price:229,orig:279,badge:null},
+  {id:89,cat:'Accessory',emoji:'🖱️',name:'Razer Basilisk V3 Pro',rating:4.7,reviews:1780,price:159,orig:199,badge:'sale'},
+  {id:90,cat:'Accessory',emoji:'🎮',name:'8BitDo Ultimate 2C Controller',rating:4.7,reviews:3401,price:49,orig:59,badge:'hot'},
+  {id:91,cat:'Wearable',emoji:'⌚',name:'Apple Watch Ultra 2',rating:4.9,reviews:2103,price:799,orig:899,badge:null},
+  {id:92,cat:'Wearable',emoji:'⌚',name:'Apple Watch Series 10 45mm',rating:4.8,reviews:5401,price:399,orig:449,badge:'sale'},
+  {id:93,cat:'Wearable',emoji:'⌚',name:'Samsung Galaxy Watch7 Ultra',rating:4.7,reviews:1204,price:649,orig:799,badge:'new'},
+  {id:94,cat:'Wearable',emoji:'⌚',name:'Samsung Galaxy Watch7 44mm',rating:4.6,reviews:2810,price:279,orig:349,badge:'sale'},
+  {id:95,cat:'Wearable',emoji:'⌚',name:'Garmin Fenix 8 Solar',rating:4.8,reviews:903,price:999,orig:1199,badge:'hot'},
+  {id:96,cat:'Wearable',emoji:'⌚',name:'Google Pixel Watch 3 XL',rating:4.6,reviews:1502,price:399,orig:499,badge:'new'},
+  {id:97,cat:'Wearable',emoji:'⌚',name:'Fitbit Sense 3',rating:4.4,reviews:3201,price:249,orig:329,badge:'sale'},
+  {id:98,cat:'Wearable',emoji:'⌚',name:'Amazfit Balance',rating:4.5,reviews:2104,price:199,orig:249,badge:null},
+  {id:99,cat:'Wearable',emoji:'⌚',name:'Withings ScanWatch 2',rating:4.6,reviews:810,price:329,orig:399,badge:null},
+  {id:100,cat:'Wearable',emoji:'⌚',name:'WHOOP 5.0 Fitness Tracker',rating:4.6,reviews:4201,price:239,orig:299,badge:'new'},
+];
+
+let currentCat='all',currentBadge='all',currentSearch='',currentSort='default',cart=[];
+
+function getFiltered(){
+  let a=[...PRODUCTS];
+  if(currentCat!=='all') a=a.filter(p=>p.cat===currentCat);
+  if(currentBadge!=='all') a=a.filter(p=>p.badge===currentBadge);
+  if(currentSearch) a=a.filter(p=>p.name.toLowerCase().includes(currentSearch.toLowerCase())||p.cat.toLowerCase().includes(currentSearch.toLowerCase()));
+  if(currentSort==='price-asc') a.sort((a,b)=>a.price-b.price);
+  else if(currentSort==='price-desc') a.sort((a,b)=>b.price-a.price);
+  else if(currentSort==='discount') a.sort((a,b)=>{const da=a.orig?((a.orig-a.price)/a.orig):0,db=b.orig?((b.orig-b.price)/b.orig):0;return db-da;});
+  else if(currentSort==='rating') a.sort((a,b)=>b.rating-a.rating);
+  return a;
+}
+
+function render(){
+  const arr=getFiltered(),grid=document.getElementById('productGrid'),info=document.getElementById('resultsInfo'),none=document.getElementById('noResults');
+  if(!arr.length){grid.innerHTML='';none.style.display='block';info.innerHTML='';return;}
+  none.style.display='none';
+  info.innerHTML=`// <b>${arr.length}</b> items loaded`;
+  grid.innerHTML=arr.map(p=>{
+    const disc=p.orig?Math.round((1-p.price/p.orig)*100)+'%':'';
+    const inCart=cart.some(c=>c.id===p.id);
+    return`<div class="card">
+      <div class="card-badges">
+        ${p.badge==='sale'?'<span class="badge b-sale">SALE</span>':''}
+        ${p.badge==='new'?'<span class="badge b-new">NEW</span>':''}
+        ${p.badge==='hot'?'<span class="badge b-hot">HOT</span>':''}
+      </div>
+      <span class="card-emoji">${p.emoji}</span>
+      <div class="card-cat">//${p.cat.toUpperCase()}</div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-rating">
+        <span class="stars">${'★'.repeat(Math.floor(p.rating))}${p.rating%1?'½':''}</span>
+        <span class="rcount">(${p.reviews.toLocaleString()})</span>
+      </div>
+      <div class="card-price">
+        <span class="p-now">$${p.price.toLocaleString()}</span>
+        ${p.orig?`<span class="p-was">$${p.orig.toLocaleString()}</span><span class="p-off">-${disc}</span>`:''}
+      </div>
+      <button class="add-btn ${inCart?'added':''}" onclick="addToCart(${p.id},this)">
+        ${inCart?'[ ✓ ADDED ]':'[ ADD_TO_CART ]'}
+      </button>
+    </div>`;
+  }).join('');
+}
+
+function filterCat(c,el){
+  currentCat=c;
+  document.querySelectorAll('#mainNav a,.f-btn').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+function filterBadge(b,el){
+  currentBadge=b;
+  // only remove active from badge filter group
+  el.closest('.filter-group').querySelectorAll('.f-btn').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+function searchProducts(q){currentSearch=q;render();}
+function sortProducts(v){currentSort=v;render();}
+function addToCart(id,btn){
+  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
+  if(cart.some(c=>c.id===id)){removeFromCart(id);return;}
+  cart.push({...p});btn.textContent='[ ✓ ADDED ]';btn.classList.add('added');updateCart();
+}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCart();render();}
+function updateCart(){
+  document.getElementById('cartCount').textContent=cart.length;
+  const total=cart.reduce((s,c)=>s+c.price,0);
+  document.getElementById('cartTotal').textContent='$'+total.toLocaleString(undefined,{minimumFractionDigits:2});
+  const items=document.getElementById('cartItems');
+  if(!cart.length){items.innerHTML='<div class="cp-empty"><div class="cp-empty-icon">🎮</div><p>// CART EMPTY</p></div>';return;}
+  items.innerHTML=cart.map(c=>`<div class="cp-item">
+    <div class="cp-item-icon">${c.emoji}</div>
+    <div class="cp-item-info"><div class="cp-item-name">${c.name}</div><div class="cp-item-price">$${c.price.toLocaleString()}</div></div>
+    <button class="cp-rm" onclick="removeFromCart(${c.id})">×</button>
+  </div>`).join('');
+}
+function toggleCart(){document.getElementById('overlay').classList.toggle('open');document.getElementById('cartPanel').classList.toggle('open');}
+render();
+</script>
 </body>
 </html>
